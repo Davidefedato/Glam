@@ -53,7 +53,6 @@ public class Server implements Runnable {
 				doRicevuto = in.readLine();
 
 				boolean esiste = false;
-				System.out.println(elenco.size());
 
 				for (int i = 0; i < elenco.size(); i++) {
 					if (elenco.get(i).nome.equalsIgnoreCase(nomeRicevuto) && elenco.get(i).cognome.equalsIgnoreCase(cognomeRicevuto)) {

@@ -6,6 +6,8 @@ import org.eclipse.swt.widgets.Shell;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Label;
@@ -14,6 +16,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class GraficaServer {
 
@@ -25,6 +29,7 @@ public class GraficaServer {
 	String sql;
 	ArrayList<Utente> elenco = new ArrayList<Utente>();
 	ArrayList<Utente> ufiltro = new ArrayList<Utente>();
+	Button btnRecupera;
 
 	/**
 	 * Launch the application.
@@ -69,11 +74,9 @@ public class GraficaServer {
 
 		list.setBounds(10, 10, 201, 242);
 
-		System.out.println(elenco.size());
-
 		Label lblData = new Label(shell, SWT.NONE);
 		lblData.setAlignment(SWT.RIGHT);
-		lblData.setBounds(272, 14, 41, 15);
+		lblData.setBounds(240, 14, 59, 15);
 		lblData.setText("Data:");
 
 		DateTime dateTime = new DateTime(shell, SWT.BORDER);
@@ -83,35 +86,51 @@ public class GraficaServer {
 
 		Label lblOra = new Label(shell, SWT.NONE);
 		lblOra.setAlignment(SWT.RIGHT);
-		lblOra.setBounds(283, 43, 30, 15);
+		lblOra.setBounds(240, 43, 59, 15);
 		lblOra.setText("Ora:");
-
+		
 		txtOra = new Text(shell, SWT.BORDER);
 		txtOra.setBounds(320, 40, 80, 21);
 		
-		Button btnRecupera = new Button(shell, SWT.NONE);
+		btnRecupera = new Button(shell, SWT.NONE);
 		btnRecupera.addSelectionListener(new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				list.removeAll();
-				String data;
-				data = dateTime.getYear() + "-" + dateTime.getMonth() + "-" + dateTime.getDay() + " "
-						+ txtOra.getText();
-				System.out.println(data);
-				sql = " SELECT * FROM `utente` WHERE `Data` < '" + data + "';";
-				try {
-					con.filtroOra(sql);
-				} catch (IOException e1) {
-					e1.printStackTrace();
+					if (!txtOra.getText().isEmpty()){
+						list.removeAll();
+						String data;
+						data = dateTime.getYear() + "-" + (dateTime.getMonth()+1) + "-" + dateTime.getDay() + " "
+								+ txtOra.getText();
+						sql = " SELECT * FROM `utente` WHERE `Data` < '" + data + "';";
+						try {
+							con.filtroOra(sql);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						ufiltro = con.ufiltro;
+						for (int i = 0; i < ufiltro.size(); i++) {
+							list.add(ufiltro.get(i).nome + " " + ufiltro.get(i).cognome);
+						}
+						ufiltro.clear();
+					}
+					else {
+						  JOptionPane.showMessageDialog(null, "Inserisci l'ora!", "Errore", JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				ufiltro = con.ufiltro;
-				for (int i = 0; i < ufiltro.size(); i++) {
-					list.add(ufiltro.get(i).nome + " " + ufiltro.get(i).cognome);
-				}
-			}
-		});
-		btnRecupera.setBounds(325, 81, 75, 25);
-		btnRecupera.setText("Recupera");	
+				
+
+		});		
+		btnRecupera.setBounds(295, 89, 75, 25);
+		btnRecupera.setText("Recupera");
+		
+		Label lblHhmmss = new Label(shell, SWT.NONE);
+		lblHhmmss.setAlignment(SWT.CENTER);
+		lblHhmmss.setBounds(240, 67, 190, 15);
+		lblHhmmss.setText("hh:mm:ss");
+		
+		Label label = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setBounds(234, 133, 190, 2);
 
 	}
 
