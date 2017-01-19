@@ -78,7 +78,7 @@ public class GraficaServer {
 		}
 		
 		list = new List(shell, SWT.BORDER);
-		list.setBounds(10, 10, 201, 242);
+		list.setBounds(10, 10, 256, 242);
 		
 		elenco = con.u;
 		
@@ -88,22 +88,22 @@ public class GraficaServer {
 		
 		Label lblData = new Label(shell, SWT.NONE);
 		lblData.setAlignment(SWT.RIGHT);
-		lblData.setBounds(234, 14, 55, 15);
+		lblData.setBounds(272, 14, 41, 15);
 		lblData.setText("Data:");
 		
 		DateTime dateTime = new DateTime(shell, SWT.BORDER);
-		dateTime.setBounds(295, 10, 80, 24);
+		dateTime.setBounds(320, 10, 80, 24);
 		
 		Label lblOra = new Label(shell, SWT.NONE);
 		lblOra.setAlignment(SWT.RIGHT);
-		lblOra.setBounds(234, 43, 55, 15);
+		lblOra.setBounds(283, 43, 30, 15);
 		lblOra.setText("Ora:");
 		
 		txtOra = new Text(shell, SWT.BORDER);
-		txtOra.setBounds(295, 40, 80, 21);
+		txtOra.setBounds(320, 40, 80, 21);
 		
-		Button btnGet = new Button(shell, SWT.NONE);
-		btnGet.addSelectionListener(new SelectionAdapter() {
+		Button btnRecupera = new Button(shell, SWT.NONE);
+		btnRecupera.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				list.removeAll();
@@ -124,8 +124,8 @@ public class GraficaServer {
 				}
 			}
 		});
-		btnGet.setBounds(283, 89, 75, 25);
-		btnGet.setText("Get");		
+		btnRecupera.setBounds(325, 81, 75, 25);
+		btnRecupera.setText("Recupera");		
 		
 	}
 }

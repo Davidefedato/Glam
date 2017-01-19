@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.eclipse.swt.SWT;
@@ -60,21 +61,21 @@ public class GraficaClient {
 	 */
 	protected void createContents() {
 		shlIscrizione = new Shell();
-		shlIscrizione.setSize(450, 300);
+		shlIscrizione.setSize(431, 105);
 		shlIscrizione.setText("Iscrizione");
 		
 		txtNome = new Text(shlIscrizione, SWT.BORDER);
-		txtNome.setBounds(10, 50, 112, 21);
+		txtNome.setBounds(10, 31, 112, 21);
 		
 		txtCognome = new Text(shlIscrizione, SWT.BORDER);
-		txtCognome.setBounds(170, 50, 112, 21);
+		txtCognome.setBounds(170, 31, 112, 21);
 		
 		Label lblNome = new Label(shlIscrizione, SWT.NONE);
-		lblNome.setBounds(10, 27, 55, 15);
+		lblNome.setBounds(10, 10, 55, 15);
 		lblNome.setText("Nome : ");
 		
 		Label lblCognome = new Label(shlIscrizione, SWT.NONE);
-		lblCognome.setBounds(170, 29, 67, 15);
+		lblCognome.setBounds(170, 10, 67, 15);
 		lblCognome.setText("Cognome :");
 		
 		Label lblNewLabel = new Label(shlIscrizione, SWT.NONE);
@@ -110,7 +111,7 @@ public class GraficaClient {
 				}
 			}
 		});
-		btnIscrivi.setBounds(326, 34, 75, 25);
+		btnIscrivi.setBounds(327, 29, 75, 25);
 		btnIscrivi.setText("Iscrivi");
 		
 		
