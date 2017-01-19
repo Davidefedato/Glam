@@ -15,7 +15,7 @@ public class ConnectionMySql {
 	static int ru;
 	static String sql;
 	public ArrayList<Utente> u = new ArrayList<Utente>();
-	public ArrayList<Utente> uf = new ArrayList<Utente>();
+	public ArrayList<Utente> ufiltro = new ArrayList<Utente>();
 
 	public void Connection() throws SQLException {
 		u.clear();
@@ -70,7 +70,7 @@ public class ConnectionMySql {
 				st = cn.createStatement();
 				rs = st.executeQuery(sql);
 				while (rs.next() == true) {
-					uf.add(new Utente(rs.getString("Nome"), rs.getString("Cognome"), rs.getString("Data")));
+					ufiltro.add(new Utente(rs.getString("Nome"), rs.getString("Cognome"), rs.getString("Data")));
 				}
 			} catch (SQLException e) {
 				System.out.println("errore:" + e.getMessage());
