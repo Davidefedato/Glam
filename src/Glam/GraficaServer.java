@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class GraficaServer {
 
@@ -25,6 +27,7 @@ public class GraficaServer {
 	String sql;
 	ArrayList<Utente> elenco = new ArrayList<Utente>();
 	ArrayList<Utente> ufiltro = new ArrayList<Utente>();
+	Button btnGet;
 
 	/**
 	 * Launch the application.
@@ -68,8 +71,6 @@ public class GraficaServer {
 		list = new List(shell, SWT.BORDER);
 		list.setBounds(10, 10, 201, 242);
 
-		System.out.println(elenco.size());
-
 		Label lblData = new Label(shell, SWT.NONE);
 		lblData.setAlignment(SWT.RIGHT);
 		lblData.setBounds(234, 14, 55, 15);
@@ -84,17 +85,22 @@ public class GraficaServer {
 		lblOra.setText("Ora:");
 
 		txtOra = new Text(shell, SWT.BORDER);
+		txtOra.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				btnGet.setVisible(true);
+			}
+		});
 		txtOra.setBounds(295, 40, 80, 21);
 
-		Button btnGet = new Button(shell, SWT.NONE);
+		btnGet = new Button(shell, SWT.NONE);
 		btnGet.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				list.removeAll();
 				String data;
-				data = dateTime.getYear() + "-" + dateTime.getMonth() + "-" + dateTime.getDay() + " "
+				data = dateTime.getYear() + "-" + (dateTime.getMonth()+1) + "-" + dateTime.getDay() + " "
 						+ txtOra.getText();
-				System.out.println(data);
 				sql = " SELECT * FROM `utente` WHERE `Data` < '" + data + "';";
 				try {
 					con.filtroOra(sql);
@@ -105,10 +111,20 @@ public class GraficaServer {
 				for (int i = 0; i < ufiltro.size(); i++) {
 					list.add(ufiltro.get(i).nome + " " + ufiltro.get(i).cognome);
 				}
+				ufiltro.clear();
 			}
 		});
 		btnGet.setBounds(283, 89, 75, 25);
 		btnGet.setText("Get");
+		btnGet.setVisible(false);
+		
+		Label lblHhmmss = new Label(shell, SWT.NONE);
+		lblHhmmss.setAlignment(SWT.CENTER);
+		lblHhmmss.setBounds(240, 67, 190, 15);
+		lblHhmmss.setText("hh:mm:ss");
+		
+		Label label = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setBounds(234, 133, 190, 2);
 
 	}
 
