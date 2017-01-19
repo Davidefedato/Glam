@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -111,9 +110,7 @@ public class GraficaClient {
 			}
 		});
 		btnIscrivi.setBounds(326, 34, 75, 25);
-		btnIscrivi.setText("Iscrivi");
-		
-		
+		btnIscrivi.setText("Iscrivi");		
 
 	}
 }
